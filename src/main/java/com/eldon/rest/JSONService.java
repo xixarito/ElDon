@@ -16,17 +16,36 @@ import com.eldon.bean.Categoria;
 import com.eldon.bean.Oficio;
 import com.eldon.bean.Servidor;
 import com.eldon.dao.ObtieneInformacionDAO;
-	
+
 @Path("/service")
 public class JSONService {
 	private static Logger log = Logger.getLogger(JSONService.class);
-	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-	ObtieneInformacionDAO info = (ObtieneInformacionDAO) context.getBean("obtieneInformacionDAO");
-	
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+			"applicationContext.xml");
+	ObtieneInformacionDAO info = (ObtieneInformacionDAO) context
+			.getBean("obtieneInformacionDAO");
+
+	@GET
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String isEnable() {
+		String resultado;
+
+		try {
+			resultado = "Servicio activo";
+		} catch (Exception e) {
+			resultado = "Servicio Inactivo";
+			log.error(e);
+		}
+
+		return resultado;
+	}
+
 	@GET
 	@Path("/buscar/{latitud}/{longitud}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Servidor> getCategorias(@PathParam("latitud") String latitud,
+	public ArrayList<Servidor> getCategorias(
+			@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud) {
 		ArrayList<Servidor> resultado = new ArrayList<Servidor>();
 
@@ -35,15 +54,16 @@ public class JSONService {
 		} catch (Exception e) {
 			log.error(e);
 		}
-		
+
 		return resultado;
 	}
-	
+
 	@GET
 	@Path("/buscar/{latitud}/{longitud}/{categoria}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public ArrayList<Oficio> getOficios(@PathParam("latitud") String latitud,
-			@PathParam("longitud") String longitud, @PathParam("categoria") String categoria) {
+			@PathParam("longitud") String longitud,
+			@PathParam("categoria") String categoria) {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
 
 		try {
@@ -51,7 +71,7 @@ public class JSONService {
 		} catch (Exception e) {
 			log.error(e);
 		}
-		
+
 		return resultado;
 	}
 
