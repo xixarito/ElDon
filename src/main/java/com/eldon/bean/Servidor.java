@@ -9,10 +9,12 @@ public class Servidor {
 	public Image foto;
 	public String valoracion;
 	public String nombre;
+	public String actividad;
 	public Date fecNac;
 	public String telefono;
-	public int latitude;
-	public int longitude;
+	public float latitude;
+	public float longitude;
+	public float distancia;
 	
 	public int getIdServidor() {
 		return idServidor;
@@ -38,6 +40,12 @@ public class Servidor {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public String getActividad() {
+		return actividad;
+	}
+	public void setActividad(String actividad) {
+		this.actividad = actividad;
+	}
 	public Date getFecNac() {
 		return fecNac;
 	}
@@ -50,17 +58,23 @@ public class Servidor {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public int getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(int latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
-	public int getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(int longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
+	}
+	public float getDistancia() {
+		return distancia;
+	}
+	public void setDistancia(float distancia) {
+		this.distancia = distancia;
 	}
 
 }

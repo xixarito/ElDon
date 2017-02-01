@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
-import com.eldon.bean.Categoria;
 import com.eldon.bean.Oficio;
+import com.eldon.bean.Servidor;
 import com.eldon.util.Constantes;
 import com.eldon.util.Util;
 
@@ -20,24 +20,26 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 	Util formatea = new Util();
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Categoria> getCategorias(String latitude, String longitud) throws Exception {
-		ArrayList<Categoria> resultado = new ArrayList<Categoria>();
+	public ArrayList<Servidor> getCategorias(String latitude, String longitud) throws Exception {
+		ArrayList<Servidor> resultado = new ArrayList<Servidor>();
 		try{
 			SimpleJdbcCall infoCategoria = new SimpleJdbcCall(dataSource).withProcedureName(Constantes.SP_CATEGORIA)
-					.returningResultSet("lista", new RowMapper<Categoria>() {
+					.returningResultSet("lista", new RowMapper<Servidor>() {
 						@Override
-						public Categoria mapRow(ResultSet rs, int rowNum) throws SQLException {
-							Categoria lista = new Categoria();
-							lista.setIdCategoria(rs.getInt("categoria_id"));
-							lista.setCategoria(rs.getString("categoria"));
+						public Servidor mapRow(ResultSet rs, int rowNum) throws SQLException {
+							Servidor lista = new Servidor();
+							lista.setIdServidor(rs.getInt("p_id_servidor"));
+							lista.setNombre(rs.getString("p_nombre"));
+							lista.setActividad(rs.getString("p_actividad"));
+							lista.setDistancia(rs.getFloat("p_distancia"));
 							return lista;
 						}
 					});
 			SqlParameterSource in = new MapSqlParameterSource()
-					.addValue("latitud", latitude.trim())
-					.addValue("longitud", longitud.trim());
+					.addValue("p_latitud", latitude.trim())
+					.addValue("p_longitud", longitud.trim());
 			Map<String, Object> m = infoCategoria.execute(in);
-			resultado = (ArrayList<Categoria>) m.get("lista");
+			resultado = (ArrayList<Servidor>) m.get("lista");
 
 		} catch (Exception e) {
 			e.printStackTrace();

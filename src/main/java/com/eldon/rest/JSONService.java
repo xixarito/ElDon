@@ -14,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eldon.bean.Categoria;
 import com.eldon.bean.Oficio;
+import com.eldon.bean.Servidor;
 import com.eldon.dao.ObtieneInformacionDAO;
 	
 @Path("/service")
@@ -25,9 +26,9 @@ public class JSONService {
 	@GET
 	@Path("/buscar/{latitud}/{longitud}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Categoria> getCategorias(@PathParam("latitud") String latitud,
+	public ArrayList<Servidor> getCategorias(@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud) {
-		ArrayList<Categoria> resultado = new ArrayList<Categoria>();
+		ArrayList<Servidor> resultado = new ArrayList<Servidor>();
 
 		try {
 			resultado = info.getCategorias(latitud, longitud);
