@@ -2,7 +2,6 @@ package com.eldon.bean;
 
 public class Oficio {
 	public int idOficio;
-	public int idCategoria;
 	public String oficio;
 	
 	public int getIdOficio() {
@@ -10,12 +9,6 @@ public class Oficio {
 	}
 	public void setIdOficio(int idOficio) {
 		this.idOficio = idOficio;
-	}
-	public int getIdCategoria() {
-		return idCategoria;
-	}
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
 	}
 	public String getOficio() {
 		return oficio;

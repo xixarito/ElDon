@@ -28,10 +28,10 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 						@Override
 						public Servidor mapRow(ResultSet rs, int rowNum) throws SQLException {
 							Servidor lista = new Servidor();
-							lista.setIdServidor(rs.getInt("p_id_servidor"));
-							lista.setNombre(rs.getString("p_nombre"));
-							lista.setActividad(rs.getString("p_actividad"));
-							lista.setDistancia(rs.getFloat("p_distancia"));
+							lista.setIdServidor(rs.getInt(1));
+							lista.setNombre(rs.getString(2));
+							lista.setActividad(rs.getString(3));
+							lista.setDistancia(rs.getFloat(4));
 							return lista;
 						}
 					});
@@ -50,23 +50,22 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Oficio> getOficios(String latitude, String longitud, String categoria) throws Exception {
+	public ArrayList<Oficio> getOficios(String latitude, String longitud) throws Exception {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
 		try{
-			SimpleJdbcCall infoCategoria = new SimpleJdbcCall(dataSource).withProcedureName(Constantes.SP_OFICIOXCAT)
+			SimpleJdbcCall infoCategoria = new SimpleJdbcCall(dataSource).withProcedureName(Constantes.SP_OFICIOS)
 					.returningResultSet("lista", new RowMapper<Oficio>() {
 						@Override
 						public Oficio mapRow(ResultSet rs, int rowNum) throws SQLException {
 							Oficio lista = new Oficio();
-							lista.setIdOficio(rs.getInt("oficio_id"));
-							lista.setOficio(rs.getString("oficio"));
+							lista.setIdOficio(rs.getInt(1));
+							lista.setOficio(rs.getString(2));
 							return lista;
 						}
 					});
 			SqlParameterSource in = new MapSqlParameterSource()
 			.addValue("latitud", latitude.trim())
-			.addValue("longitud", longitud.trim())
-			.addValue("categoria_id", categoria.trim());
+			.addValue("longitud", longitud.trim());
 			
 			Map<String, Object> m = infoCategoria.execute(in);
 			resultado = (ArrayList<Oficio>) m.get("lista");

@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.eldon.bean.Categoria;
 import com.eldon.bean.Oficio;
 import com.eldon.bean.Servidor;
 import com.eldon.dao.ObtieneInformacionDAO;
@@ -40,7 +39,24 @@ public class JSONService {
 
 		return resultado;
 	}
+	
+	@GET
+	@Path("/oficio/{latitud}/{longitud}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public ArrayList<Oficio> getOficios(
+			@PathParam("latitud") String latitud,
+			@PathParam("longitud") String longitud) {
+		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
 
+		try {
+			resultado = info.getOficios(latitud, longitud);
+		} catch (Exception e) {
+			log.error(e);
+		}
+
+		return resultado;
+	}
+	
 	@GET
 	@Path("/buscar/{latitud}/{longitud}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -57,22 +73,4 @@ public class JSONService {
 
 		return resultado;
 	}
-
-	@GET
-	@Path("/buscar/{latitud}/{longitud}/{categoria}")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Oficio> getOficios(@PathParam("latitud") String latitud,
-			@PathParam("longitud") String longitud,
-			@PathParam("categoria") String categoria) {
-		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
-
-		try {
-			resultado = info.getOficios(latitud, longitud, categoria);
-		} catch (Exception e) {
-			log.error(e);
-		}
-
-		return resultado;
-	}
-
 }
