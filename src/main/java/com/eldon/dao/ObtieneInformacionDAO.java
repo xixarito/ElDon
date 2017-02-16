@@ -50,7 +50,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Oficio> getOficios(String latitude, String longitud) throws Exception {
+	public ArrayList<Oficio> getOficios(String latitude, String longitud, int pagina) throws Exception {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
 		try{
 			SimpleJdbcCall infoCategoria = new SimpleJdbcCall(dataSource).withProcedureName(Constantes.SP_OFICIOS)
@@ -64,8 +64,9 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 						}
 					});
 			SqlParameterSource in = new MapSqlParameterSource()
-			.addValue("latitud", latitude.trim())
-			.addValue("longitud", longitud.trim());
+			.addValue("p_latitud", latitude.trim())
+			.addValue("p_longitud", longitud.trim())
+			.addValue("p_pagina", pagina);
 			
 			Map<String, Object> m = infoCategoria.execute(in);
 			resultado = (ArrayList<Oficio>) m.get("lista");

@@ -41,15 +41,16 @@ public class JSONService {
 	}
 	
 	@GET
-	@Path("/oficio/{latitud}/{longitud}")
+	@Path("/oficio/{latitud}/{longitud}/{pagina}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public ArrayList<Oficio> getOficios(
 			@PathParam("latitud") String latitud,
-			@PathParam("longitud") String longitud) {
+			@PathParam("longitud") String longitud,
+			@PathParam("pagina") String pagina) {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
 
 		try {
-			resultado = info.getOficios(latitud, longitud);
+			resultado = info.getOficios(latitud, longitud,Integer.parseInt(pagina));
 		} catch (Exception e) {
 			log.error(e);
 		}
