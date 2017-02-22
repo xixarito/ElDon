@@ -89,7 +89,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 									throws SQLException {
 								Servidor lista = new Servidor();
 								lista.setIdServidor(rs.getInt(1));
-								lista.setFoto((Blob) rs.getBlob(2));
+								//lista.setFoto((Blob) rs.getBlob(2));
 								lista.setValoracion(rs.getInt(3));
 								lista.setNombre(rs.getString(4));
 								lista.setEdad(rs.getString(5));
@@ -123,7 +123,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 							public Servidor mapRow(ResultSet rs, int rowNum)
 									throws SQLException {
 								Servidor lista = new Servidor();
-								lista.setFoto((Blob) rs.getBlob(1));
+								//lista.setFoto((Blob) rs.getBlob(1));
 								lista.setNombre(rs.getString(2));
 								lista.setTelefono(rs.getString(3));
 								lista.setEdad(rs.getString(4));

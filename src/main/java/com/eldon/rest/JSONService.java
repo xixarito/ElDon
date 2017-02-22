@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.eldon.bean.Oficio;
+import com.eldon.bean.Raiz;
 import com.eldon.bean.Servidor;
 import com.eldon.dao.ObtieneInformacionDAO;
 
@@ -23,6 +24,8 @@ public class JSONService {
 			"applicationContext.xml");
 	ObtieneInformacionDAO info = (ObtieneInformacionDAO) context
 			.getBean("obtieneInformacionDAO");
+
+	Raiz respuesta = new Raiz();
 
 	@GET
 	@Path("/")
@@ -43,7 +46,7 @@ public class JSONService {
 	@GET
 	@Path("/oficio/{latitud}/{longitud}/{pagina}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Oficio> getOficios(@PathParam("latitud") String latitud,
+	public Raiz getOficios(@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud,
 			@PathParam("pagina") String pagina) {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
@@ -53,14 +56,16 @@ public class JSONService {
 		} catch (Exception e) {
 			log.error("getOficios: " + e);
 		}
+		
+		respuesta.setOficio(resultado);
 
-		return resultado;
+		return respuesta;
 	}
 
 	@GET
 	@Path("/oficio/{latitud}/{longitud}/{clave}/{pagina}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Oficio> getOficios(@PathParam("latitud") String latitud,
+	public Raiz getOficios(@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud,
 			@PathParam("clave") String clave, @PathParam("pagina") String pagina) {
 		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
@@ -71,30 +76,38 @@ public class JSONService {
 			log.error(e);
 		}
 
-		return resultado;
+		respuesta.setOficio(resultado);
+
+		return respuesta;
 	}
-	
+
 	@GET
 	@Path("/servidorOficio/{latitud}/{longitud}/{oficio}/{pagina}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Servidor> getServidorOficio(@PathParam("latitud") String latitud,
+	public Raiz getServidorOficio(
+			@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud,
-			@PathParam("oficio") String oficio, @PathParam("pagina") String pagina) {
+			@PathParam("oficio") String oficio,
+			@PathParam("pagina") String pagina) {
 		ArrayList<Servidor> resultado = new ArrayList<Servidor>();
 
 		try {
-			resultado = info.getServidorOficio(latitud, longitud, oficio, pagina);
+			resultado = info.getServidorOficio(latitud, longitud, oficio,
+					pagina);
 		} catch (Exception e) {
 			log.error(e);
 		}
 
-		return resultado;
+		respuesta.setServidor(resultado);
+
+		return respuesta;
 	}
-	
+
 	@GET
 	@Path("/actividadServidor/{servidor}/{latitud}/{longitud}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public ArrayList<Servidor> getActividadServidor(@PathParam("servidor") String servidor,
+	public Raiz getActividadServidor(
+			@PathParam("servidor") String servidor,
 			@PathParam("latitud") String latitud,
 			@PathParam("longitud") String longitud) {
 		ArrayList<Servidor> resultado = new ArrayList<Servidor>();
@@ -105,6 +118,8 @@ public class JSONService {
 			log.error(e);
 		}
 
-		return resultado;
+		respuesta.setServidor(resultado);
+
+		return respuesta;
 	}
 }
