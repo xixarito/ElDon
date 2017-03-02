@@ -2,8 +2,12 @@ package com.eldon.util;
 
 import java.util.Date;
 import java.util.Locale;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import org.apache.commons.io.IOUtils;
 
 public class Util {	
 	Locale locale = new Locale("es","MX");
@@ -39,5 +43,13 @@ public class Util {
         
         horaFormat = dt1.format(date);
         return horaFormat;
+	}
+	
+	public Blob convierteImagen(InputStream imagen) throws Exception{
+		Blob blob = null;
+		byte[] bytes = IOUtils.toByteArray(imagen);
+		blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+		return blob;
+		
 	}
 }
