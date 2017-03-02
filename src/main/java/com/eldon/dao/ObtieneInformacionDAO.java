@@ -161,6 +161,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 							@Override
 							public String mapRow(ResultSet rs, int rowNum)
 									throws SQLException {
+								System.out.println(rs.getString(0));
 								return rs.getString(1);
 							}
 						});

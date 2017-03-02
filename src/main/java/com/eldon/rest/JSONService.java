@@ -158,7 +158,7 @@ public class JSONService {
 		String resultado = "Error";
 		//Image imagen = null;
 
-		System.out.println(nombre + " " + fecNacimiento + " " + telefono + " "
+		log.info(nombre + " " + fecNacimiento + " " + telefono + " "
 				+ latitud + " " + longitud + " " + actividad + " "
 				+ experiencia + " " + datoAdicional);
 
