@@ -1,14 +1,8 @@
 package com.eldon.rest;
 
-import java.awt.Image;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,8 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -28,12 +20,7 @@ import com.eldon.bean.Oficio;
 import com.eldon.bean.Raiz;
 import com.eldon.bean.Servidor;
 import com.eldon.dao.ObtieneInformacionDAO;
-import com.eldon.util.Util;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataBodyPart;
-import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.FormDataParam;
-import com.sun.jersey.multipart.MultiPart;
 
 @Path("/service")
 public class JSONService {
@@ -113,6 +100,7 @@ public class JSONService {
 					pagina);
 		} catch (Exception e) {
 			log.error(e);
+			e.printStackTrace();
 		}
 
 		respuesta.setServidor(resultado);
@@ -158,20 +146,16 @@ public class JSONService {
 		String resultado = "Error";
 		//Image imagen = null;
 
-		log.info(nombre + " " + fecNacimiento + " " + telefono + " "
-				+ latitud + " " + longitud + " " + actividad + " "
-				+ experiencia + " " + datoAdicional);
-
 		try {
 			//imagen = ImageIO.read(fileInputStream);
 			resultado = info.altaServidor(idServidor, idOficio, nombre,
 					fecNacimiento, telefono, latitud, longitud, actividad,
 					experiencia, datoAdicional, fileInputStream);
 		} catch (Exception e) {
-			log.error(e);
+			log.error(e.toString());
 		}
 
-		//JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen))); Mostrar imagen
+		//JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen))); //Mostrar imagen
 
 		return Response.status(200).entity(resultado).build();
 

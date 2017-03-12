@@ -1,10 +1,9 @@
 package com.eldon.bean;
 
-import com.mysql.jdbc.Blob;
-
 public class Servidor extends ServidorOficio {
+	
 	public int idServidor;
-	public Blob foto;
+	public byte[] foto;
 	public int valoracion;
 	public String nombre;
 	public String edad;
@@ -21,12 +20,12 @@ public class Servidor extends ServidorOficio {
 		this.idServidor = idServidor;
 	}
 
-	public Blob getFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(Blob blob) {
-		this.foto = blob;
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 
 	public int getValoracion() {

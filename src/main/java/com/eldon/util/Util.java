@@ -48,9 +48,7 @@ public class Util {
 	public Blob convierteImagen(InputStream imagen) throws Exception{
 		Blob blob = null;
 		byte[] bytes = IOUtils.toByteArray(imagen);
-		System.out.println(bytes.toString());
 		blob = new javax.sql.rowset.serial.SerialBlob(bytes);
-		System.out.println(blob);
 		return blob;
 		
 	}
