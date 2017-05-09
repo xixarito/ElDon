@@ -28,6 +28,29 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO{
 	 */
 	Util formatea = new Util();
 	private static Logger log = Logger.getLogger(ObtieneInformacionDAO.class);
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Oficio> getOficios() {
+		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
+
+		SimpleJdbcCall infoCategoria = new SimpleJdbcCall(dataSource)
+				.withProcedureName(Constantes.SP_OFICIOS).returningResultSet(
+						"lista", new RowMapper<Oficio>() {
+							@Override
+							public Oficio mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								Oficio lista = new Oficio();
+								lista.setIdOficio(rs.getInt(1));
+								lista.setOficio(rs.getString(2));
+								return lista;
+							}
+						});
+		
+		Map<String, Object> m = infoCategoria.execute();
+		resultado = (ArrayList<Oficio>) m.get("lista");
+
+		return resultado;
+	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Oficio> getOficios(String latitude, String longitud,
@@ -204,4 +227,5 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO{
 				
 		return Integer.toString(resultado);
 	}
+	
 }

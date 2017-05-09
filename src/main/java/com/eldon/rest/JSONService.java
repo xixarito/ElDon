@@ -47,6 +47,23 @@ public class JSONService {
 
 		return resultado;
 	}
+	
+	@GET
+	@Path("/oficio")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Raiz getAllOficios() {
+		ArrayList<Oficio> resultado = new ArrayList<Oficio>();
+
+		try {
+			resultado = info.getOficios();
+		} catch (Exception e) {
+			log.error("getAllOficios: " + e);
+		}
+
+		respuesta.setOficio(resultado);
+
+		return respuesta;
+	}
 
 	@GET
 	@Path("/oficio/{latitud}/{longitud}/{pagina}")
